@@ -43,10 +43,10 @@ allData<-merge(allData, activities, by.x="activity_id", by.y="activity_id")
 allData<-merge(allData, features, by.x="subject_id", by.y="feature_id")
 wantedRows <- allData %>% filter(grepl(".*mean.*|.*std.*", feature))
 
-allData.melted <- melt(allData, id = c("subject", "activity"))
-allData.mean <- dcast(allData.melted, subject + activity ~ variable, mean)
+wantedRows.melted <- melt(wantedRows, id = c("feature", "activity"))
+wantedRows.mean <- dcast(wantedRows.melted, feature + activity ~ variable, mean)
 
-write.table(allData.mean, "tidy.txt", row.names = FALSE, quote = FALSE)
+write.table(wantedRows.mean, "tidy.txt", row.names = FALSE, quote = FALSE)
 
 
 
